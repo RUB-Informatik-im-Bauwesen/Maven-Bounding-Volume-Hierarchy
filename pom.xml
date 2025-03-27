@@ -8,6 +8,10 @@
     <artifactId>BVH</artifactId>
     <version>1.0</version>
 
+    <name>Bounding-Volume-Hierarchy (BVH)</name>
+    <description>A BVH implementation for the JVM</description>
+    <url>https://github.com/RUB-Informatik-im-Bauwesen/Maven-Bounding-Volume-Hierarchy</url>
+
     <licenses>
         <license>
             <name>MIT</name>
@@ -15,6 +19,14 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+
+    <developers>
+        <developer>
+            <id>Florian-DE</id>
+            <name>Florian Becker</name>
+            <email>info@florianbecker.eu</email>
+        </developer>
+    </developers>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
