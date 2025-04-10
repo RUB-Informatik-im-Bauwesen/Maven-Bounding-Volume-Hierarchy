@@ -39,9 +39,17 @@ public class BVHTree<T> {
         final var leftObjects = sortedObjects.subList(0, mid);
         final var rightObjects = sortedObjects.subList(mid, sortedObjects.size());
 
-        return new InternalNode(combinedBoundingBox, buildTree(leftObjects.stream().collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))), buildTree(rightObjects.stream().collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))));
+        final var leftMap = leftObjects.stream().collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        final var rightMap = rightObjects.stream().collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+        return new InternalNode(combinedBoundingBox, buildTree(leftMap), buildTree(rightMap));
     }
 
+    /**
+     * Traverse the tree left leaf first. A path is not pursued further if the supplied iterator returns false.
+     * @param iterator
+     * @param node
+     */
     private void traverseTree(Iterator<T> iterator, BVHNode node) {
         if (node instanceof InternalNode internalNode && iterator.iterationStep(node.boundingBox, Optional.empty())) {
             traverseTree(iterator, internalNode.left);
@@ -53,6 +61,10 @@ public class BVHTree<T> {
         }
     }
 
+    /**
+     * Traverse the tree left leaf first. A path is not pursued further if the supplied iterator returns false.
+     * @param iterator
+     */
     public void traverse(Iterator<T> iterator) {
         this.traverseTree(iterator, root);
     }
